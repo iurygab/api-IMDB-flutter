@@ -56,14 +56,21 @@ class MyListScreen extends StatelessWidget {
                 return GestureDetector(
                   // Define a ação ao tocar em um item.
                   onTap: () {
+                    // Certifique-se de que o ID está presente e correto
+                    if (!item.containsKey('id') || item['id'] == null) {
+                      print(item.toString());
+                      print('Erro: ID não encontrado para o item: $item');
+                      return;
+                    }
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         // Navega para a tela de detalhes do filme.
                         builder: (context) => MovieDetailsScreen(
-                          movieId: 0, // ID do filme, ajustável conforme necessário.
+                          movieId: item['id'] as int, // Passa o ID correto do filme.
                           movieTitle: item['title']!, // Título do filme, obtido do item.
-                          isMovie: true, // Define se é um filme ou uma série.
+                          isMovie: item['media_type'] == 'movie', // Define se é um filme ou uma série.
                         ),
                       ),
                     );

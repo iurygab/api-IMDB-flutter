@@ -86,6 +86,31 @@ class TMDBApi {
         throw Exception('Erro ao buscar séries populares');
       }
     }
-  
+   // Método para buscar filmes recomendados
+  Future<List<dynamic>> fetchRecommendedMovies(int movieId) async {
+    final response = await http.get(Uri.parse(
+        '$baseUrl/movie/$movieId/recommendations?api_key=$apiKey&language=pt-BR'));
 
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['results'] ?? []; // Retorna a lista de recomendações
+    } else {
+      throw Exception('Erro ao buscar filmes recomendados');
+    }
+  }
+
+  // Método para buscar séries recomendadas
+  Future<List<dynamic>> fetchRecommendedSeries(int seriesId) async {
+    final response = await http.get(Uri.parse(
+        '$baseUrl/tv/$seriesId/recommendations?api_key=$apiKey&language=pt-BR'));
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['results'] ?? []; // Retorna a lista de recomendações
+    } else {
+      throw Exception('Erro ao buscar séries recomendadas');
+    }
+  }
 }
+
+

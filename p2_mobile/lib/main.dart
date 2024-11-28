@@ -49,7 +49,7 @@ class _SplashScreenWrapperState extends State<SplashScreenWrapper> {
         const curve = Curves.easeInOut;
 
         var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
+        animation.drive(tween);
 
         // Retorna uma animação de fade
         return FadeTransition(opacity: animation, child: child);
